@@ -2,4 +2,4 @@ copterweb
 =========
 
 can enter website
-http://openbox00.github.io/Web/
+http://openbox00.github.io/copterweb/

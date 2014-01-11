@@ -25,25 +25,25 @@
 <div id="impress">
     
     <div class="step slide" data-x="1000" data-y="1000" data-scale="3.2">
-        <div><b><strong>Killercopter spec</strong></b></div>
+        <div><b><strong>Killercopter Spec</strong></b></div>
         <div class="content">
-            <div><img src="img/killercopter.jpg" width="500px" style="float:left"></img></div>
+            <div><img src="img/killercopter.jpg" width="425x" style="display:block; margin:auto;"></img></div>
             <div class="info">
-                <div class="attr">&nbsp;1.Frame：450mm</div>
-                <div class="attr">&nbsp;2.ESC：ZTW 40A</div>
-                <div class="attr">&nbsp;3.Motor：930KV</div>
-                <div class="attr">&nbsp;4.Propeller：10 X 4.5in</div>
+               <br> <div class="attr">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;1.Frame：450mm</div>
+                <div class="attr">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;2.ESC：ZTW 40A</div>
+                <div class="attr">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;3.Motor：930KV</div>
+                <div class="attr">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;4.Propeller：10 X 4.5in</div>
             </div>
         </div>
     </div>
 
     <div class="step slide" data-x="2400" data-y="-200"  data-z="-1500">
-        <b><strong>系統架構</b></strong>
+        <b><strong>System Diagram</b></strong>
         <div class="content"> 
             <div class="info">
                 <div class="attr">1.使用FreeRTOS建立多工控制</div>
-                <div class="attr">2.利用濾波器與PID算出角度</div>
-                <div class="attr">3.建立Shell方便監控四軸</div>
+                <div class="attr">2.利用互補濾波器與PID穩定平衡</div>
+                <div class="attr">3.建立Shell環境監控四軸</div>
                 <div class="attr">4.透過Android手機調整四軸姿態</div><br>      
             </div>
             <div> 
@@ -53,72 +53,66 @@
     </div>
 
     <div class="step slide" data-x="2400" data-y="540">
-        <b><strong>濾波器</strong></b>
+        <b><strong>Filter</strong></b>
         <div class="content"> 
             <div> <img src="img/filter.png" width="800px" style="float:left"> </img> </div>
         </div>
     </div>
 
     <div class="step slide" data-x="2400" data-y="1300" data-rotate-x="90">
-        <b><strong></strong></b>
+        <b><strong>Accelerometer</strong></b>
         <div class="content">
+            <img src="img/Accelerometer.png" width="290px" style="left"> </img>
+            <img src="img/Accelerometer2.png" width="500px" style="display:right"> </img>
             <div class="info">
-                <div class="attr"> </div>
-                <div class="attr"></div>
-                <div class="attr">
-                    <img src="" height="300px" style="float:left"> </img>
-                    <img src="" height="300px" style="float:left"> </img> 
-                </div>
+                <div class="attr">1.加速規負責靜態平台傾角量測(由重力的分力推算)</div>
+                <div class="attr">2.θ小於π/60時sin(θ)=θ的特性</div>
+                <div class="attr">3.透過low-pass filter濾除水平移動時的加速度</div>   
             </div>
         </div>
     </div>
 
     <div class="step slide" data-x="-4800" data-y="2100" data-rotate="180" data-scale="6">
-        <b><strong></strong></b>
+        <b><strong>Gyroscope</strong></b>
         <div class="content">
-            <div class="info">
-                <div class="attr"> </div>
-                <div class="attr"></div>
-                <div class="attr">
-                    <img src="" height="300px" style="float:left"> </img>
-                    <img src="" height="300px" style="float:left"> </img> 
-                </div>
+            <img src="img/Gyroscope.png" width="325px" style="display:block; margin:auto;"> </img><div class="info">
+                <div class="attr">1.陀螺儀負責動態量測平台傾角</div>
+                <div class="attr">2.陀螺儀得角速度,積分時間後即得傾斜角</div>
+                <div class="attr">3.透過High-Pass Filter濾除靜止時雜訊</div>   
             </div>
         </div>
     </div>  
 
     <div class="step slide" data-x="2825" data-y="2325" data-z="-3000" data-rotate="300" data-scale="1">
-        <b><strong></strong></b>
+        <b><strong>PID Controller</strong></b>
         <div class="content">
+            <div> <img src="img/PID.png" width="800px" style="float:left"> </img> </div>
             <div class="info">
-                <div class="attr"> </div>
-                <div class="attr"></div>
-                <div class="attr">
-                    <img src="" height="300px" style="float:left"> </img>
-                    <img src="" height="300px" style="float:left"> </img> 
-                </div>
+                <br><div class="attr">1.利用手機傳遞訊號控制SP(setpoint)改變姿態</div>
+                <div class="attr">2.目前角度和SP的誤差乘上P值做PWM輸出</div>
+                <div class="attr">3.陀螺儀求出的角速度乘上D值做PWM阻尼</div> 
             </div>
         </div>
     </div>   
 
     <div class="step slide" data-x="6700" data-y="-300" data-scale="6">
-        <b><strong>程式碼</strong></b>
+        <b><strong>Source Code</strong></b>
         <div class="content"> 
             <div class="info">
                 <div class="attr">主要使用語言：C、Java</div>
-                <div class="attr">飛控板&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手機APP</div>
+                <div class="attr">飛控板&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Android APP</div>
                 <div><a href="https://github.com/openbox00/quadcopter"><img src="img/b.jpg" height="180px" style="float:left"></a>
                 <a href="https://github.com/PJayChen/KillerCopter_Android_WIFI_RC"><img src="img/app.jpg" height="180px" style="float:left"></a></div>
                 <div class="attr"><br><br><br><br>Socket<br><a href="https://github.com/JoyHsu/Socket"><img src="img/socket.jpg" height="125px" style="float:left" /></a></div>
                 <div class="attr"><br><br>所有程式碼都放置於GITHUB上，點取圖片即可前往各個Repositories</div>                                   
             </div>
-        </div>        
+        </div>       
     </div>    
 
     <div class="step slide" data-x="460" data-y="540" data-z="-500" data-scale=".3" data-rotate-x="-270" data-rotate-y="270">
-        <b><strong>DEMO影片</strong></b>
+        <b><strong>Video DEMO</strong></b>
         <div class="content"> 
-            <embed src="http://www.youtube.com/v/" type="application/x-shockwave-flash" wmode="transparent" width="800" height="550"></embed>
+            <embed src="http://www.youtube.com/v/ag6wM8LBVag" type="application/x-shockwave-flash" wmode="transparent" width="800" height="550"></embed>
         </div>
     </div>
 
